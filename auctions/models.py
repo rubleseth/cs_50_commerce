@@ -11,11 +11,13 @@ class Listing(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,)
     title = models.CharField(max_length=250)
     description = models.TextField()
-    image = models.ImageField
+    image = models.ImageField(upload_to="images")
+    starting_price = models.DecimalField(max_digits=1000000, decimal_places=2)
 
 
 class Bid(models.Model):
-    pass
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    bid = models.DecimalField(max_digits=1000000, decimal_places=2)
 
 
 class Comments(models.Model):
