@@ -16,7 +16,7 @@ class Listing(models.Model):
 
 
 class Bid(models.Model):
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    listing_bid = models.ManyToManyField(Listing)
     bid = models.DecimalField(max_digits=1000000, decimal_places=2)
 
 
