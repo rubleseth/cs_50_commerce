@@ -12,11 +12,15 @@ class Listing(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField()
     image = models.ImageField(upload_to="images")
-    starting_price = models.DecimalField(max_digits=1000000, decimal_places=2)
+    price = models.DecimalField(max_digits=1000000, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.author} {self.title} {self.price}"
 
 
 class Bid(models.Model):
-    listing_bid = models.ManyToManyField(Listing)
+    bidder = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    bid_item = models.ManyToManyField(Listing)
     bid = models.DecimalField(max_digits=1000000, decimal_places=2)
 
 
