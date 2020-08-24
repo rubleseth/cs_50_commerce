@@ -13,9 +13,15 @@ class Listing(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=100000000, decimal_places=2)
     created_date = models.DateTimeField("Date Created")
+    image = models.ImageField(upload_to="images", null=True)
 
 
 class Bid(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     bid = models.DecimalField(max_digits=100000000, decimal_places=2, null=True)
     bid_item = models.ForeignKey("Listing", on_delete=models.CASCADE, null=True)
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    comment = models.TextField()
