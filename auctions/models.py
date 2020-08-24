@@ -8,25 +8,14 @@ class User(AbstractUser):
 
 
 class Listing(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,)
-    title = models.CharField(max_length=250)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
     description = models.TextField()
-    image = models.ImageField(upload_to="images")
-    price = models.DecimalField(max_digits=1000000, decimal_places=2)
-
-    def __str__(self):
-        return f"{self.author} {self.title} {self.price}"
+    price = models.DecimalField(max_digits=100000000, decimal_places=2)
+    created_date = models.DateTimeField("Date Created")
 
 
 class Bid(models.Model):
-    bidder = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    bid_item = models.ManyToManyField(Listing)
-    bid = models.DecimalField(max_digits=1000000, decimal_places=2)
-
-
-class Comments(models.Model):
-    pass
-
-
-class Watchlist(models.Model):
-    pass
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    bid = models.DecimalField(max_digits=100000000, decimal_places=2, null=True)
+    bid_item = models.ForeignKey("Listing", on_delete=models.CASCADE, null=True)
