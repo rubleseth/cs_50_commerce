@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h1>Create Listing</h1>
+<div>
+    {% if user.is_authenticated %}
+        Signed in as <strong>{{ user.username }}</strong>.
+        <form class="" action="" method="post">
+          {% csrf_token %}
+          <label for="">Title:</label>
+          {{form.title}}
+          <br>
+          <label for="">Description:</label>
+          <br>
+          {{form.description}}
+          <br>
+          <label for="">Price: $</label>
+          {{form.price}}
+          <br>
+          <label for="">Image</label>
+          {{form.image}}
+          <input type="submit" name="" value="Create">
+
+        </form>
+    {% else %}
+        Not signed in.
+        <a href="{% url 'login_view'%}">login</a>
+        or
+        <a href="{% url 'register'%}">register</a>
+    {% endif %}
+
+{% endblock %}
