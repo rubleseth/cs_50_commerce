@@ -13,7 +13,7 @@ class Listing(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     price = models.DecimalField(max_digits=100000000, decimal_places=2)
-    created_date = models.DateTimeField("Date Created")
+    created_date = models.DateTimeField("Date Created", auto_now=True)
     image = models.ImageField(upload_to="images", null=True)
 
 

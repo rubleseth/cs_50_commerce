@@ -78,15 +78,13 @@ def dashboard(request):
 @login_required
 def create_listing(request):
     if request.method == "POST":
-        form = CreateListing(request.POST)
+        form = CreateListing(request.POST, request.FILES)
         if form.is_valid():
-            title = form.cleaned_data["title"]
-            description = form.cleaned_data["description"]
-            price = form.cleaned_data["price"]
-            created_date = form.cleaned_data["created_date"]
-            image = form.cleaned_data["image"]
+            form.save()
             return HttpResponseRedirect(reverse("index"))
-
+        else:
+            print(form.errors.as_data())
+            return render(request, "auctions/create_listing.html", {"form": form})
     else:
         return render(
             request, "auctions/create_listing.html", {"form": CreateListing()}
